@@ -67,7 +67,7 @@ public class SampleSchedulingService extends IntentService implements MainMvp.Pi
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(this)
         .setSmallIcon(R.drawable.ic_launcher)
-        .setContentTitle(getString(R.string.doodle_alert))
+        .setContentTitle("Alert")
         .setStyle(new NotificationCompat.BigTextStyle()
         .bigText(msg))
         .setContentText(msg);
