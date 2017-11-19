@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.CompoundButton;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import butterknife.Bind;
@@ -43,7 +44,7 @@ public class AnotherMainActivity extends AppCompatActivity implements MainMvp.Pi
     @Override
     protected void onResume() {
         super.onResume();
-        presenter.get("http://192.168.1.11/api_next.lc?action=lamp_status");
+        presenter.get("http://192.168.1.1/api_next.lc?action=lamp_status");
 
     }
 
@@ -52,25 +53,25 @@ public class AnotherMainActivity extends AppCompatActivity implements MainMvp.Pi
         Log.e("Asdf",""+response);
         if (response.equals("1") || response.equals("HIGH")) {
             //toggleButton.setChecked(true);
-            Preferences.with(AnotherMainActivity.this).setStatus("0").save();
-        } else if (response.equals("0") || response.equals("LOW")){
             Preferences.with(AnotherMainActivity.this).setStatus("1").save();
+        } else if (response.equals("0") || response.equals("LOW")){
+            Preferences.with(AnotherMainActivity.this).setStatus("0").save();
             //toggleButton.setChecked(false);
         }
     }
 
     @Override
     public void onFailed(String message) {
-
+        Toast.makeText(AnotherMainActivity.this,message,Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
         Log.e("Asdf",""+toggleButton.isChecked());
         if (toggleButton.isChecked()) {
-            presenter.get("http://192.168.1.11/api_next.lc?action=turn_on_lamp");
+            presenter.get("http://192.168.1.1/api_next.lc?action=turn_off_lamp");
         } else {
-            presenter.get("http://192.168.1.11/api_next.lc?action=turn_off_lamp");
+            presenter.get("http://192.168.1.1/api_next.lc?action=turn_on_lamp");
         }
     }
 }
